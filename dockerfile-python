@@ -1,0 +1,32 @@
+FROM --platform=linux/arm64 ubuntu:20.04
+
+FROM python:3.12
+
+COPY ./Code /Code
+
+RUN apt update && apt full-upgrade -y
+
+RUN apt install sudo -y && \
+    sudo apt install build-essential
+
+RUN pip3 install 'pandas' \
+    'ollama' \
+    'python-docx' \
+    'flask_socketio' \
+    'flask' \
+    'langchain' \
+    'langgraph' \
+    'langchain-ollama' \
+    'pymongo' \
+    'langchain-community' \
+    'faiss-gpu-cu12' \
+    'docx2txt' \
+    'unsloth' \
+    'trl' \
+    'transformers' \
+    'jupyter' \
+    'jupyterlab' \
+    'googlesearch-python'
+EXPOSE 8888
+
+CMD jupyter lab --ip=0.0.0.0 --allow-root --notebook-dir=/

@@ -1,0 +1,17 @@
+FROM --platform=linux/arm64 ubuntu:20.04
+
+FROM ollama/ollama
+
+COPY ./Code /Code
+
+RUN apt update && apt full-upgrade -y
+
+RUN apt install sudo -y && \
+	sudo apt install pipx -y && \
+	pipx install ollama --include-deps
+
+RUN chmod +x /Code/model-download.sh
+
+ENTRYPOINT [ "/Code/model-download.sh" ]
+
+EXPOSE 11434
