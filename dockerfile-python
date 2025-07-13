@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 ubuntu:20.04
+FROM arm64v8/ubuntu:20.04
 
 FROM python:3.12
 
@@ -9,24 +9,45 @@ RUN apt update && apt full-upgrade -y
 RUN apt install sudo -y && \
     sudo apt install build-essential
 
-RUN pip3 install 'pandas' \
-    'ollama' \
-    'python-docx' \
-    'flask_socketio' \
-    'flask' \
-    'langchain' \
-    'langgraph' \
-    'langchain-ollama' \
-    'pymongo' \
-    'langchain-community' \
-    'faiss-gpu-cu12' \
-    'docx2txt' \
-    'unsloth' \
-    'trl' \
-    'transformers' \
-    'jupyter' \
-    'jupyterlab' \
-    'googlesearch-python'
+RUN pip3 install --upgrade pip
+
+RUN pip3 install 'pandas'
+
+RUN pip3 install 'ollama'
+
+RUN pip3 install 'python-docx'
+
+RUN pip3 install 'flask_socketio'
+
+RUN pip3 install 'flask'
+
+RUN pip3 install 'langchain'
+
+RUN pip3 install 'langgraph'
+
+RUN pip3 install 'langchain-ollama'
+
+RUN pip3 install 'pymongo'
+
+RUN pip3 install 'langchain-community'
+# Mac cannot run fiass-gpu-cu12
+RUN pip3 install 'faiss-cpu'
+
+RUN pip3 install 'docx2txt'
+# Mac cannot use unsloth, but MLX isn't working on Mac either
+#RUN pip3 install 'mlx'
+
+RUN pip3 install 'trl'
+
+RUN pip3 install 'transformers'
+
+RUN pip3 install 'jupyter'
+
+RUN pip3 install 'jupyterlab'
+
+RUN pip3 install 'googlesearch-python'
+
+
 EXPOSE 8888
 
 CMD jupyter lab --ip=0.0.0.0 --allow-root --notebook-dir=/

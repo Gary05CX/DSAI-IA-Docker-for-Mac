@@ -1,7 +1,7 @@
 services:
   modelserver:
     # For Apple Silicon (M1/M2/M3), ensure your Dockerfile supports arm64 or is multi-arch
-    # platform: linux/arm64 # Uncomment if you want to force ARM64, otherwise let Docker handle it
+    platform: linux/arm64 
     build:
       context: .
       dockerfile: dockerfile-llm
@@ -11,6 +11,7 @@ services:
     # No GPU environment variables needed for Apple Silicon
     ports:
       - 4476:11434
+
   mongos:
     build:
       context: .
@@ -18,9 +19,10 @@ services:
     container_name: logs
     ports:
       - 27017:27017
+      
   clientside:
     # For Apple Silicon (M1/M2/M3), ensure your Dockerfile supports arm64 or is multi-arch
-    # platform: linux/arm64 # Uncomment if you want to force ARM64, otherwise let Docker handle it
+    platform: linux/arm64 
     build:
       context: .
       dockerfile: dockerfile-python
