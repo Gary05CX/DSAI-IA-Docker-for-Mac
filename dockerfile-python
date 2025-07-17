@@ -47,6 +47,7 @@ RUN pip3 install 'jupyterlab'
 
 RUN pip3 install 'googlesearch-python'
 
+RUN pip3 install 'diffusers'
 
 EXPOSE 8888
 
